@@ -61,7 +61,7 @@
                     });
                 }else{
                     sessionStorage.setItem('user', JSON.stringify(resultObj));
-                    this.$router.push({ path: '/table' });
+                    this.$router.push({ path: '/echarts' });
                 }
             })
            /* requestLogin(loginParams).then(data => {
