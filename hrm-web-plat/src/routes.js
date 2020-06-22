@@ -4,11 +4,9 @@ import NotFound from './views/404.vue'
 import Home from './views/Home.vue'
 import Main from './views/Main.vue'
 import Table from './views/nav1/Table.vue'
-import Form from './views/nav1/Form.vue'
-import user from './views/nav1/user.vue'
-import Page6 from './views/nav3/Page6.vue'
 import echarts from './views/charts/echarts.vue'
 import CourseType from './views/course/courseType'
+import Course from './views/course/Course'
 
 let routes = [
     {
@@ -43,30 +41,30 @@ let routes = [
         path: '/',
         component: Home,
         name: '课程管理',
-        iconCls: 'fa fa-id-card-o',
+        iconCls: 'fa fa-window-restore',
         children: [
             { path: '/CourseType', component: CourseType, name: '课程类型' },
-            { path: '/main', component: Main, name: '课程信息' }
+            { path: '/Course', component: Course, name: '课程信息' }
         ]
     },
     {
         path: '/',
         component: Home,
         name: '系统管理',
-        iconCls: 'fa fa-id-card-o',
+        iconCls: 'fa fa-cog',
         children: [
-            { path: '/main', component: Main, name: '主页', hidden: true },
-            { path: '/table', component: Table, name: 'Table' }
+            { path: '/tenantType', component: Main, name: '租户类型' },
+            { path: '/tenant', component: Table, name: '租户信息' }
         ]
     },
     {
         path: '/',
         component: Home,
-        name: '系统管理',
-        iconCls: 'fa fa-id-card-o',
+        name: '职位管理',
+        iconCls: 'fa fa-user-circle-o',
         children: [
-            { path: '/main', component: Main, name: '主页', hidden: true },
-            { path: '/table', component: Table, name: 'Table' }
+            { path: '/jobType', component: Main, name: '职位类型' },
+            { path: '/job', component: Table, name: '职位信息' }
         ]
     },
     {
