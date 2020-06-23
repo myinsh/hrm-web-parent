@@ -22,6 +22,12 @@
                 <el-form-item>
                     <el-button size="small" type="primary" @click="handleAdd">新增</el-button>
                 </el-form-item>
+                <el-form-item>
+                    <el-button size="small" type="primary" @click="handleOnLine">课程上线</el-button>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="small" type="primary" @click="handleOffLine">课程下线</el-button>
+                </el-form-item>
             </el-form>
         </el-col>
 
@@ -90,6 +96,10 @@
                 <el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>
             </div>
         </el-dialog>
+
+
+
+
 
         <!--新增界面（基本信息）-->
         <el-dialog title="新增" :visible.sync="courseVisible" :close-on-click-modal="false">
@@ -213,6 +223,88 @@
             }
         },
         methods: {
+            //课程上线
+            handleOnLine() {
+                let ids = this.sels.map(course => {
+                    return course.id;
+                });
+
+                if(this.sels.length<=0){
+                    this.$message({
+                        message: "请选择数据",
+                        type: "warning"
+                    })
+                    return;
+                }
+                this.$confirm('是否上线课程', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$http.post("/course/course/onLine", ids).then(res => {
+                        let {success, message} = res.data;
+                        if (success) {
+                            this.$message({
+                                message: "上线成功",
+                                type: "success"
+                            })
+                            this.page=1;
+                            this.getCourses();
+                        }else {
+                            this.$message({
+                                message: "上线失败",
+                                type: "error"
+                            })
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消上线'
+                    });
+                });
+            },
+            //课程下线
+            handleOffLine() {
+                let ids = this.sels.map(course => {
+                    return course.id;
+                });
+
+                if(this.sels.length<=0){
+                    this.$message({
+                        message: "请选择数据",
+                        type: "warning"
+                    })
+                    return;
+                }
+                this.$confirm('是否下线课程', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$http.post("/course/course/offLine", ids).then(res => {
+                        let {success, message} = res.data;
+                        if (success) {
+                            this.$message({
+                                message: "下线成功",
+                                type: "success"
+                            })
+                            this.page=1;
+                            this.getCourses();
+                        }else {
+                            this.$message({
+                                message: "下线失败",
+                                type: "error"
+                            })
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消下线'
+                    });
+                });
+            },
             //课程图片上传成功
             handleUploadSuccess(response, file, fileList){
                 let {success,message,resultObj} = response;
