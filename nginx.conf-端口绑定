@@ -1,0 +1,30 @@
+worker_processes  1;
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+
+
+    server {
+        listen       81;
+        server_name  localhost;
+        location / {
+            root   hrm-course;
+            index home.html;
+        }   
+    }
+     server {
+        listen       82;
+        server_name  localhost;
+        location / {
+            root   hrm-plat;
+            index  index.html index.htm;
+        }   
+    }
+}

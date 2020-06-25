@@ -1,0 +1,29 @@
+worker_processes  1;
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    
+     upstream tomcats {
+	server localhost:8080 weight=1;
+	server localhost:8081 weight=6;
+     }
+    
+    server{
+        listen: 80;
+        location / {
+	proxy_pass http://tomcats
+        }    
+
+    }
+
+
+    sendfile        on;
+    keepalive_timeout  65;
+	
+
+}
